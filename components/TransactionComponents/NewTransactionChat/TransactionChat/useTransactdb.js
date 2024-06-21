@@ -7,23 +7,25 @@ const useTransactdb = (accepted, session) => {
     const [chatDb, setChatData] = useState();
 
     useEffect(() => {
+        if (accepted !== null && session !== null) {
+            const getTransactionData = async () => {
+                const response = await axios.get(`https://transactionbased.ratefy.co/api/get-session/${accepted}/${session}`);
+                setTransactionData(response);
+            }
 
-        const getTransactionData = async () => {
-            const response = await axios.get(`https://transactionbased.ratefy.co/api/get-session/${accepted}/${session}`);
-            setTransactionData(response);
+            const getChatData = async () => {
+                const response = await axios.post(`https://transactionbased.ratefy.co/api/get-chat`, {
+                    session: session,
+                    acceptance: accepted,
+                });
+                setChatData(response.data);
+            }
+
+
+            getTransactionData();
+            getChatData();
         }
 
-        const getChatData = async () => {
-            const response = await axios.post(`https://transactionbased.ratefy.co/api/get-chat`, {
-                session: session,
-                acceptance: accepted,
-            });
-            setChatData(response.data);
-        }
-
-
-        getTransactionData();
-        getChatData();
 
     }, []);
 

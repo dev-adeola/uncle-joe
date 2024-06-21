@@ -44,7 +44,6 @@ function BuyerChatHead(headStatus) {
         }else {
             setIndex(1)
         }
-       
     }
 }, [index]);
 

@@ -6,12 +6,15 @@ const useDetail = (uuid) => {
     const [detail, setDetail] = useState();
 
     useEffect(() => {
-        const getDetail = async () => {
-            const response = await axios.get(`https://p2p.ratefy.co/api/get-users-details/${uuid}`, { headers: { 'User-Agents': 'Ratefy' } });
-            setDetail(response);
+        if (uuid !== null) {
+            const getDetail = async () => {
+                const response = await axios.get(`https://p2p.ratefy.co/api/get-users-details/${uuid}`, { headers: { 'User-Agents': 'Ratefy' } });
+                setDetail(response);
+            }
+
+            getDetail();
         }
 
-        getDetail();
     }, [detail]);
 
     return { detail }
