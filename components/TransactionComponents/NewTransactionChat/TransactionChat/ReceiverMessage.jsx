@@ -5,7 +5,7 @@ import useDetail from "./useDetail";
 
 
 function ReceiverMessage({ message }) {
-  const { detail } = useDetail(message?.sender);
+  // const { detail } = useDetail(message?.sender);
 
   return (
     <div
@@ -23,7 +23,7 @@ function ReceiverMessage({ message }) {
         <div className="flex items-center space-x-2">
           <h3 className="font-karla font-bold text-xs md:text-sm text-[#333]">
             {/* {message?.sender} */}
-            {detail?.data.user.data.username}
+            {/* {detail?.data.user.data.username} */}
           </h3>
           <p className="font-karla font-normal  text-subText text-[10px] md:text-sm">
             {formatDate(message?.timestamp) || ""}

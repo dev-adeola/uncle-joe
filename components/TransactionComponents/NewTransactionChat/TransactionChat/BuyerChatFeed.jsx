@@ -10,7 +10,10 @@ import BuyerChatBotAssistant from "./BuyerChatBotAssistant";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
 
-function BuyerChatFeed({messages, loading }) {
+function BuyerChatFeed({messages, loading, myDetails, otherDetails }) {
+    console.log(myDetails);
+    console.log(otherDetails);
+
     const { data } = useGetUserIdQuery();
 
     const messageContainerRef = useRef(null);

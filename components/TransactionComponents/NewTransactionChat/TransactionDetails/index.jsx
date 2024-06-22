@@ -1,10 +1,11 @@
 import { Box, Button } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import TransactionInfo from "./TransactionInfo";
 import { useParams } from "next/navigation";
 import useTransactdb from "../TransactionChat/useTransactdb";
 import useDecider from "./useDecider";
 import { formatDate } from "@/utils/dateFormatter";
+
 
 // import { CopyToClipboard } from "react-copy-to-clipboard";
 
@@ -12,7 +13,7 @@ function TransactionDetails() {
   const params = useParams();
   const { transactionDb } = useTransactdb(params.acceptance_id, params.session_id);
   const { decided } = useDecider(transactionDb?.data.data.id, transactionDb?.data.data.item_for);
- 
+  
   const truncated = (str) => {
     return str?.length > 25 ? str?.substring(0, 15) + "..." : str;
   }

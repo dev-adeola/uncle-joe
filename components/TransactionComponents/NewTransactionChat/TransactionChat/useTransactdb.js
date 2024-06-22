@@ -7,7 +7,7 @@ const useTransactdb = (accepted, session) => {
     const [chatDb, setChatData] = useState();
 
     useEffect(() => {
-        if (accepted !== null && session !== null) {
+        if ((accepted !== null && accepted !== undefined) && (session !== null && session !== undefined)) {
             const getTransactionData = async () => {
                 const response = await axios.get(`https://transactionbased.ratefy.co/api/get-session/${accepted}/${session}`);
                 setTransactionData(response);

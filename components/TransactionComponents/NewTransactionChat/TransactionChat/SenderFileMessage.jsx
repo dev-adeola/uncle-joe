@@ -5,7 +5,7 @@ import useDetail from "./useDetail";
 
 
 function SenderFileMessage({ message }) {
-  const { detail } = useDetail(message?.sender);
+  // const { detail } = useDetail(message?.sender);
   console.log(detail)
   console.log(message);
 
@@ -20,7 +20,7 @@ function SenderFileMessage({ message }) {
           </p>
           <h3 className="font-karla font-bold text-xs md:text-sm text-[#333]">
             {/* {message?.sender} */}
-            {detail?.data.user.data.username}
+            {/* {detail?.data.user.data.username} */}
           </h3>
         </div>
         {/* Message  */}

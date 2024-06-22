@@ -51,7 +51,7 @@ function BuyerChatHead(headStatus) {
     <>
       <Box className="w-full" bgcolor={transactionStatuses[index].class}>
         <Box className="w-full md:space-y-2 h-fit max-h-[130px] text-white p-4 md:px-8 ">
-          <div className="hidden md:block ">
+          <div className="hidden md:block">
             <p className="uppercase text-sm font-medium font-rubik">
               transaction status
             </p>

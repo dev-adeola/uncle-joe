@@ -4,7 +4,7 @@ import React from "react";
 import useDetail from "./useDetail";
 
 function ReceiverFileMessage({ message }) {
-  const { detail } = useDetail(message?.sender);
+  // const { detail } = useDetail(message?.sender);
   return (
     <div
       id={"1234321"}
@@ -20,7 +20,7 @@ function ReceiverFileMessage({ message }) {
         {/*  */}
         <div className="flex items-center space-x-2">
           <h3 className="font-karla font-bold text-xs md:text-sm text-[#333]">
-          {detail?.data.user.data.username}
+          {/* {detail?.data.user.data.username} */}
             {/* {message.sender || ""} */}
           </h3>
           <p className="font-karla font-normal  text-subText text-[10px] md:text-sm">

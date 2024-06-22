@@ -11,7 +11,11 @@ import SenderFileMessage from "./SenderFileMessage";
 import ChatBotAssistant from "./ChatBotAssistant";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
-function ChatFeed({messages, loading }) {
+function ChatFeed({messages, loading, myDetails, otherDetails }) {
+
+  console.log(myDetails);
+  console.log(otherDetails);
+  
   const { data } = useGetUserIdQuery();
 
   const messageContainerRef = useRef(null);
