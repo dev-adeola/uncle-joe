@@ -16,50 +16,12 @@ import ChatFeed from "./ChatFeed";
 import BuyerChatFeed from "./BuyerChatFeed";
 import useChat from "./useChat";
 import useTransactdb from "./useTransactdb";
-import useDetail from "./useDetail";
 
 function TransactionChat() {
   const params = useParams();
   const { data } = useGetUserIdQuery();
-  const { transactionDb, chatDb } = useTransactdb(params.acceptance_id, params.session_id);
+  const { transactionDb, chatDb, buyerDetail, sellerDetail } = useTransactdb(params.acceptance_id, params.session_id);
   const { chatMessages, loading, decidePage } = useChat(params.acceptance_id + '-' + params.session_id, transactionDb);
-
-  const myDetails = useRef();
-  const otherDetails = useRef();
-
-  
-
-  
- const getMydetails = (userUuid) => {
-    if(userUuid !== null) {
-      const { detail } = useDetail(userUuid);
-      myDetails.current = detail;
-    } 
- }
-
-
- const getOtherDetails = (userUuid) => {
-    if(userUuid !== null) {
-      const { detail } = useDetail(userUuid);
-      otherDetails.current = detail;
-    }  
- }
-
-
-  if(data?.uuid !== null &&  transactionDb?.data.data.owner_id !== null) {
-    const decideDetails = () => {
-      if(data?.uuid === transactionDb?.data.data.owner_id) {
-          getMydetails(transactionDb?.data.data.owner_id);
-          getOtherDetails(transactionDb?.data.data.receipient_id);
-      }else {
-          getMydetails(transactionDb?.data.data.receipient_id);
-          getOtherDetails(transactionDb?.data.data.owner_id);
-      } 
-    }
-    decideDetails();
-  }
-  
-
 
   const textMessage = (content) => {
     axios.post(`https://transactionbased.ratefy.co/api/send-chat`, {
@@ -99,8 +61,9 @@ function TransactionChat() {
   const buyerPage =  () => {
     return (
       <>
+
         <BuyerChatHead status={transactionDb?.data.data ?? ''} />
-        {chatMessages?.length === 0 ?  <BuyerChatFeed messages={Object?.values(chatDb ?? [])} loading={false}  myDetails={myDetails.current} otherDetails={otherDetails.current} /> :  <BuyerChatFeed messages={[...Object?.values(chatDb ?? []),...chatMessages]} loading={loading}  myDetails={myDetails.current} otherDetails={otherDetails.current} /> }
+        {chatMessages?.length === 0 && (transactionDb?.data.data !== null &&  transactionDb?.data.data !== undefined ) ?  <BuyerChatFeed messages={Object?.values(chatDb ?? [])} loading={false} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''}   />  :  <BuyerChatFeed messages={[...Object?.values(chatDb ?? []), ...chatMessages]} loading={loading} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''}   /> }
         <ChatFooter handleSendMessage={handleSendMessage} />
       </>
     )
@@ -112,7 +75,7 @@ function TransactionChat() {
       <>
 
         <ChatHead  status={transactionDb?.data.data ?? ''} />
-        {chatMessages?.length === 0 ?  <ChatFeed messages={Object?.values(chatDb ?? [])} loading={false}  myDetails={myDetails.current} otherDetails={otherDetails.current} /> :  <ChatFeed messages={[...Object?.values(chatDb ?? []),...chatMessages]} loading={loading}  myDetails={myDetails.current} otherDetails={otherDetails.current} /> }
+        {chatMessages?.length === 0 && (transactionDb?.data.data !== null &&  transactionDb?.data.data !== undefined ) ?  <ChatFeed messages={Object?.values(chatDb ?? [])} loading={false} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''}    /> :  <ChatFeed messages={[...Object?.values(chatDb ?? []), ...chatMessages]} loading={loading} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''}   /> }
         <ChatFooter handleSendMessage={handleSendMessage} />
       </>
     )

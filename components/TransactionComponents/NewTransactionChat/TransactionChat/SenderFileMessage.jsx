@@ -1,13 +1,9 @@
 import { Avatar } from "@mui/material";
 import React from "react";
 import { formatDate } from "@/utils/dateFormatter";
-import useDetail from "./useDetail";
 
 
-function SenderFileMessage({ message }) {
-  // const { detail } = useDetail(message?.sender);
-  console.log(detail)
-  console.log(message);
+function SenderFileMessage({ message, username }) {
 
   return (
     <div className="px-4 py-3 flex items-start space-x-4 justify-end">
@@ -19,7 +15,7 @@ function SenderFileMessage({ message }) {
             {formatDate(message?.timestamp) || ""}
           </p>
           <h3 className="font-karla font-bold text-xs md:text-sm text-[#333]">
-            {/* {message?.sender} */}
+            {username}
             {/* {detail?.data.user.data.username} */}
           </h3>
         </div>

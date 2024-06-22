@@ -10,12 +10,8 @@ import BuyerChatBotAssistant from "./BuyerChatBotAssistant";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
 
-function BuyerChatFeed({messages, loading, myDetails, otherDetails }) {
-    console.log(myDetails);
-    console.log(otherDetails);
-
+function BuyerChatFeed({messages, loading, buyerDetails, sellerDetails }) {
     const { data } = useGetUserIdQuery();
-
     const messageContainerRef = useRef(null);
     useEffect(() => {
         
@@ -42,22 +38,22 @@ function BuyerChatFeed({messages, loading, myDetails, otherDetails }) {
                 {messages.map((message) => {
                     if (message.contentType === "text") {
                     // Check if the message is from the current user
-                    const isCurrentUser = message.sender === data?.uuid;
+                    const isCurrentUser = message.sender === data?.uuid && (data?.uuid ===  buyerDetails?.data?.user.data.uuid);
                     if (isCurrentUser) {
-                        return <SenderMessage key={message?._id} message={message} />;
+                        return <SenderMessage key={message?._id} message={message} username={buyerDetails?.data?.user.data.username}  />;
                     } else {
-                        return <ReceiverMessage key={message?._id} message={message} />;
+                        return <ReceiverMessage key={message?._id} message={message} username={sellerDetails?.data?.user.data.username}  />;
                     }
                     } else if (message.contentType === "file") {
                     // Check if the message is from the current user
-                    const isCurrentUser = message.sender === data?.uuid;
+                    const isCurrentUser = message.sender === data?.uuid && (data?.uuid ===  buyerDetails?.data?.user.data.uuid);
                     if (isCurrentUser) {
                         return (
-                        <SenderFileMessage key={message?._id} message={message} />
+                        <SenderFileMessage key={message?._id} message={message} username={buyerDetails?.data?.user.data.username}  />
                         );
                     } else {
                         return (
-                        <ReceiverFileMessage key={message?._id} message={message} />
+                        <ReceiverFileMessage key={message?._id} message={message} username={sellerDetails?.data?.user.data.username} />
                         );
                     }
                     }

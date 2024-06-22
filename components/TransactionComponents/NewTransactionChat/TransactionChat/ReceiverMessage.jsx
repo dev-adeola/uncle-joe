@@ -1,11 +1,8 @@
 import { formatDate } from "@/utils/dateFormatter";
 import { Avatar } from "@mui/material";
 import React from "react";
-import useDetail from "./useDetail";
 
-
-function ReceiverMessage({ message }) {
-  // const { detail } = useDetail(message?.sender);
+function ReceiverMessage({ message, username }) {
 
   return (
     <div
@@ -22,7 +19,7 @@ function ReceiverMessage({ message }) {
         {/*  */}
         <div className="flex items-center space-x-2">
           <h3 className="font-karla font-bold text-xs md:text-sm text-[#333]">
-            {/* {message?.sender} */}
+            {username}
             {/* {detail?.data.user.data.username} */}
           </h3>
           <p className="font-karla font-normal  text-subText text-[10px] md:text-sm">

@@ -10,6 +10,7 @@ const useDetail = (uuid) => {
             const getDetail = async () => {
                 const response = await axios.get(`https://p2p.ratefy.co/api/get-users-details/${uuid}`, { headers: { 'User-Agents': 'Ratefy' } });
                 console.log(response);
+
                 setDetail(response);
             }
             getDetail();
