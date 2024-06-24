@@ -6,12 +6,12 @@ import { useGetUserIdQuery } from "@/services/apiSlice";
 const useGetUpdate = (authSession) => {
 
     const { data, error, isError, isSuccess, isFetching, isLoading } = useGetUserIdQuery();
-    const [getUpdate, setGetUpdate] = useState([]);
+    const [getUpdate, setGetUpdate] = useState();
 
     if (authSession !== null) {
         const channel = pusher.subscribe(`transUpdate.` + authSession);
         const handleMessage = function (myData) {
-            setGetUpdate((prevData) => [...prevData, myData]);
+            setGetUpdate(myData);
         }
 
         const handleError = function (err) {

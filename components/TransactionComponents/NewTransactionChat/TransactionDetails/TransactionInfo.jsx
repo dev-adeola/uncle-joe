@@ -5,14 +5,14 @@ import useDetail from "../TransactionChat/useDetail";
 
 export default function TransactionInfo(info) {
 
-  // const { detail } = useDetail(info?.info?.data.response?.data.uuid);
+  const { detail } = useDetail(info?.info?.data.response?.data.uuid);
   return (
     <Box className="h-fit w-full">
       <Box className=" flex w-full items-center justify-start space-x-4 bg-[#1C2124] px-4 py-2 md:space-x-6 xl:space-x-8 md:px-6 xl:px-8 md:py-4">
         <Avatar className="h-[31px] w-[31px]" />
         <div className="flex flex-col space-y-1 md:space-y-2">
           <p className="font-karla text-xs font-medium text-white md:text-[16px]">
-            {/* {detail?.data.user?.data.username} */}
+            {detail?.data.user?.data.username}
           </p>
           <div className="flex space-x-4 md:space-x-6 xl:space-x-8">
             <div className="flex flex-col md:space-y-1">

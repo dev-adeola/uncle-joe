@@ -28,7 +28,7 @@ function TransactionChat() {
         session: params.session_id, 
         acceptance: params.acceptance_id,
         sender: data?.uuid,
-        receiver: data?.uuid !== transactionDb?.data.data.owner_id ? transactionDb?.data.data.recipient :  transactionDb?.data.data.owner,
+        receiver: data?.uuid === transactionDb?.data.data.owner_id ? transactionDb?.data.data.recipient_id :  transactionDb?.data.data.recipient_id,
         message: content,
         contentType: "text"
       })
@@ -39,7 +39,7 @@ function TransactionChat() {
         session: params.session_id, 
         acceptance: params.acceptance_id,
         sender: data?.uuid,
-        receiver: data?.uuid !== transactionDb?.data.data.owner_id ? transactionDb?.data.data.recipient :  transactionDb?.data.data.owner,
+        receiver: data?.uuid === transactionDb?.data.data.owner_id ? transactionDb?.data.data.recipient_id :  transactionDb?.data.data.recipient_id,
         photo: image,
         contentType: "file"
      }, {
@@ -64,11 +64,10 @@ function TransactionChat() {
 
         <BuyerChatHead status={transactionDb?.data.data ?? ''} />
         {chatMessages?.length === 0 && (transactionDb?.data.data !== null &&  transactionDb?.data.data !== undefined ) ?  <BuyerChatFeed messages={Object?.values(chatDb ?? [])} loading={false} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''}   />  :  <BuyerChatFeed messages={[...Object?.values(chatDb ?? []), ...chatMessages]} loading={loading} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''}   /> }
-        <ChatFooter handleSendMessage={handleSendMessage} />
+        <ChatFooter handleSendMessage={handleSendMessage} buttonStatus={transactionDb?.data.data} />
       </>
     )
   }
-
 
   const sellerPage =  () => {
     return (
@@ -76,12 +75,10 @@ function TransactionChat() {
 
         <ChatHead  status={transactionDb?.data.data ?? ''} />
         {chatMessages?.length === 0 && (transactionDb?.data.data !== null &&  transactionDb?.data.data !== undefined ) ?  <ChatFeed messages={Object?.values(chatDb ?? [])} loading={false} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''}    /> :  <ChatFeed messages={[...Object?.values(chatDb ?? []), ...chatMessages]} loading={loading} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''}   /> }
-        <ChatFooter handleSendMessage={handleSendMessage} />
+        <ChatFooter handleSendMessage={handleSendMessage} buttonStatus={transactionDb?.data.data} />
       </>
     )
   }
-
-
 
   return (
     <Box className="relative w-full h-full max-h-full flex flex-col overflow-hidden md:max-w-[600px] bg-white ">

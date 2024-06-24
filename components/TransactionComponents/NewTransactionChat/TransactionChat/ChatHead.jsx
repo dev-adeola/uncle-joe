@@ -1,7 +1,7 @@
 "use client";
 
 import { Box } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 import useGetUpdate from "./useGetUpdate";
 
@@ -32,25 +32,28 @@ const transactionStatuses = [
 
 function ChatHead(headStatus) {
   const params = useParams();
-  const { getUpdate, loading, decidePage } = useGetUpdate(params.acceptance_id + '-' + params.session_id);
-  const [index, setIndex] = useState(1);
-  useEffect(() => {
-        
+  const { getUpdate } = useGetUpdate(params.acceptance_id + '-' + params.session_id);
+  const index = useRef(0);
+    
+  if(getUpdate === undefined || getUpdate === null) {
     if(headStatus.status.proof_of_payment === "void") {
-        setIndex(0)
-    }else {
-        if(headStatus.status.proof_of_payment_status === "accept") {
-            setIndex(2)
-        }else {
-            setIndex(1)
-        }
-       
+      index.current = 0;
+    }else if(headStatus.status.proof_of_payment !== "void") {
+      index.current = 1;
+    }else if(headStatus.status.proof_of_payment_status === "accept") {
+      index.current = 2;
     }
-}, [index]);
-
+  }else {
+    if(parseInt(getUpdate.updateState) > 0) {
+      index.current = parseInt(getUpdate.updateState);
+    }else {
+      index.current = 0;
+    }
+  }
+   
   return (
     <>
-      <Box className="w-full" bgcolor={transactionStatuses[index].class}>
+      <Box className="w-full" bgcolor={transactionStatuses[index.current].class}>
         <Box className="w-full md:space-y-2 h-fit max-h-[130px] text-white p-4 md:px-8 ">
           <div className="hidden md:block ">
             <p className="uppercase text-sm font-medium font-rubik">
@@ -61,10 +64,10 @@ function ChatHead(headStatus) {
             {/*  */}
             <div className="space-y-2 w-full flex-1">
               <p className="capitalize text-[20px] font-bold font-rubik">
-                {transactionStatuses[index].title}
+                {transactionStatuses[index.current].title}
               </p>
               <p className="max-w-[220px] text-xs font-karla font-medium md:text-sm">
-                {transactionStatuses[index].info}
+                {transactionStatuses[index.current].info}
               </p>
             </div>
             {/*  */}
