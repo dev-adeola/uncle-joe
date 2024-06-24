@@ -11,7 +11,8 @@ import SenderFileMessage from "./SenderFileMessage";
 import ChatBotAssistant from "./ChatBotAssistant";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
-function ChatFeed({messages, loading, buyerDetails, sellerDetails }) {
+function ChatFeed({messages, loading, buyerDetails, sellerDetails, buttonStatus }) {
+  
   const { data } = useGetUserIdQuery();
 
   const messageContainerRef = useRef(null);
@@ -34,7 +35,7 @@ function ChatFeed({messages, loading, buyerDetails, sellerDetails }) {
         </div>
       ) : (
         <>
-          <ChatBotAssistant />
+          <ChatBotAssistant status={buttonStatus} />
 
           {messages.map((message) => {
             if (message.contentType === "text") {

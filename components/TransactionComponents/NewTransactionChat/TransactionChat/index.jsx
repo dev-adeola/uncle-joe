@@ -8,7 +8,6 @@ import { ArrowBack } from "@mui/icons-material";
 import axios from "axios";
 import { useGetUserIdQuery } from "@/services/apiSlice";
 
-
 import ChatHead from "./ChatHead";
 import BuyerChatHead from "./BuyerChatHead";
 import ChatFooter from "./ChatFooter";
@@ -63,7 +62,7 @@ function TransactionChat() {
       <>
 
         <BuyerChatHead status={transactionDb?.data.data ?? ''} />
-        {chatMessages?.length === 0 && (transactionDb?.data.data !== null &&  transactionDb?.data.data !== undefined ) ?  <BuyerChatFeed messages={Object?.values(chatDb ?? [])} loading={false} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''}   />  :  <BuyerChatFeed messages={[...Object?.values(chatDb ?? []), ...chatMessages]} loading={loading} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''}   /> }
+        {chatMessages?.length === 0 && (transactionDb?.data.data !== null &&  transactionDb?.data.data !== undefined ) ?  <BuyerChatFeed messages={Object?.values(chatDb ?? [])} loading={false} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''} buttonStatus={transactionDb?.data.data}  />  :  <BuyerChatFeed messages={[...Object?.values(chatDb ?? []), ...chatMessages]} loading={loading} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''} buttonStatus={transactionDb?.data.data}  /> }
         <ChatFooter handleSendMessage={handleSendMessage} buttonStatus={transactionDb?.data.data} />
       </>
     )
@@ -74,8 +73,8 @@ function TransactionChat() {
       <>
 
         <ChatHead  status={transactionDb?.data.data ?? ''} />
-        {chatMessages?.length === 0 && (transactionDb?.data.data !== null &&  transactionDb?.data.data !== undefined ) ?  <ChatFeed messages={Object?.values(chatDb ?? [])} loading={false} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''}    /> :  <ChatFeed messages={[...Object?.values(chatDb ?? []), ...chatMessages]} loading={loading} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''}   /> }
-        <ChatFooter handleSendMessage={handleSendMessage} buttonStatus={transactionDb?.data.data} />
+        {chatMessages?.length === 0 && (transactionDb?.data.data !== null &&  transactionDb?.data.data !== undefined ) ?  <ChatFeed messages={Object?.values(chatDb ?? [])} loading={false} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''} buttonStatus={transactionDb?.data.data}   /> :  <ChatFeed messages={[...Object?.values(chatDb ?? []), ...chatMessages]} loading={loading} buyerDetails={buyerDetail ?? ''} sellerDetails={sellerDetail ?? ''} buttonStatus={transactionDb?.data.data}   /> }
+        <ChatFooter handleSendMessage={handleSendMessage}  />
       </>
     )
   }

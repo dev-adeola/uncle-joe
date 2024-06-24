@@ -7,12 +7,11 @@ import ReceivePaymentBtn from "./ReceivePaymentBtn";
 import ChatBotCancelBtn from "./ChatBotCancelBtn";
 
 
-function BuyerChatBotAssistant() {
+function BuyerChatBotAssistant(buttonStatus) {
   const [activeId, setActiveId] = useState(null); // 'made-payment' | 'cancel-transaction' | 'repeat-transaction' | null
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
   const id = open ? "chat-bot-assistance" : undefined;
-
   const handleClick = (event) => {
  
     setAnchorEl(event.currentTarget);
@@ -73,16 +72,9 @@ function BuyerChatBotAssistant() {
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <div className="flex  ml-4 flex-col space-y-4 !bg-transparent">
-              <ReceivePaymentBtn
-                id={"made-payment"}
-                activeId={activeId}
-                setActiveId={setActiveId}
-              />
-              <ChatBotCancelBtn
-                id={"cancel-transaction"}
-                activeId={activeId}
-                setActiveId={setActiveId}
-              />
+              {buttonStatus?.status.proof_of_payment_status !== "accept" ? <ReceivePaymentBtn id={"made-payment"} activeId={activeId} setActiveId={setActiveId} /> : null }
+              {buttonStatus?.status.session_status !== "closed"  ? (buttonStatus?.status.proof_of_payment_status !== "accept" ?   <ChatBotCancelBtn id={"cancel-transaction"}  activeId={activeId}  setActiveId={setActiveId} /> : null ) : null }
+             
             </div>
           </Fade>
         )}

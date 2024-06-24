@@ -10,7 +10,7 @@ import BuyerChatBotAssistant from "./BuyerChatBotAssistant";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
 
-function BuyerChatFeed({messages, loading, buyerDetails, sellerDetails }) {
+function BuyerChatFeed({messages, loading, buyerDetails, sellerDetails, buttonStatus }) {
     const { data } = useGetUserIdQuery();
     const messageContainerRef = useRef(null);
     useEffect(() => {
@@ -32,7 +32,7 @@ function BuyerChatFeed({messages, loading, buyerDetails, sellerDetails }) {
                 </div>
             ) : (
                 <>
-                <BuyerChatBotAssistant />
+                <BuyerChatBotAssistant status={buttonStatus} />
 
 
                 {messages.map((message) => {
